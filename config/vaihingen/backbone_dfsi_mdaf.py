@@ -1,7 +1,7 @@
 from torch.utils.data import DataLoader
 from geoseg.losses import *
 from geoseg.datasets.vaihingen_dataset import *
-from geoseg.models.HDPA import HDPANet
+from geoseg.models.backbone_dfsi_mdaf import backbone_dfsi_mdaf
 from tools.utils import Lookahead
 from tools.utils import process_model_params
 
@@ -17,9 +17,9 @@ backbone_weight_decay = 0.01
 num_classes = len(CLASSES)
 classes = CLASSES
 
-weights_name = "hdpa-r18-512-crop-ms-e105"
+weights_name = "backbone_dfsi_mdaf-r18-512-crop-ms-e105"
 weights_path = "model_weights/vaihingen/{}".format(weights_name)
-test_weights_name = "hdpa-r18-512-crop-ms-e105"
+test_weights_name = "backbone_dfsi_mdaf-r18-512-crop-ms-e105"
 log_name = 'vaihingen/{}'.format(weights_name)
 monitor = 'val_F1'
 monitor_mode = 'max'
@@ -31,7 +31,7 @@ gpus = 'auto'  # default or gpu ids:[0] or gpu nums: 2, more setting can refer t
 resume_ckpt_path = None  # whether continue training with the checkpoint, default None
 
 #  define the network
-net = HDPANet(num_classes=num_classes)
+net = backbone_dfsi_mdaf(num_classes=num_classes)
 
 # define the loss
 loss = UnetFormerLoss(ignore_index=ignore_index)

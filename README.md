@@ -27,7 +27,7 @@ Prepare the following folders to organize this repo:
 
 ```none
 airs
-├── GeoSeg (code)
+├── ImgSeg (code)
 ├── pretrain_weights (pretrained weights of backbones, such as vit, swin, etc)
 ├── model_weights (save the model weights trained on ISPRS vaihingen, LoveDA, etc)
 ├── fig_results (save the masks predicted by models)
@@ -75,7 +75,7 @@ Open the folder **airs** using **Linux Terminal** and create python environment:
 conda create -n airs python=3.8
 conda activate airs
 pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
-pip install -r GeoSeg/requirements.txt
+pip install -r ImgSeg/requirements.txt
 ```
 
 ## Pretrained Weights of Backbones
@@ -93,7 +93,7 @@ Download the datasets from the official website and split them yourself.
 Generate the training set.
 
 ```
-python GeoSeg/tools/vaihingen_patch_split.py \
+python ImgSeg/tools/vaihingen_patch_split.py \
 --img-dir "data/vaihingen/train_images" \
 --mask-dir "data/vaihingen/train_masks" \
 --output-img-dir "data/vaihingen/train/images_1024" \
@@ -104,7 +104,7 @@ python GeoSeg/tools/vaihingen_patch_split.py \
 Generate the testing set.
 
 ```
-python GeoSeg/tools/vaihingen_patch_split.py \
+python ImgSeg/tools/vaihingen_patch_split.py \
 --img-dir "data/vaihingen/test_images" \
 --mask-dir "data/vaihingen/test_masks_eroded" \
 --output-img-dir "data/vaihingen/test/images_1024" \
@@ -116,7 +116,7 @@ python GeoSeg/tools/vaihingen_patch_split.py \
 Generate the masks_1024_rgb (RGB format ground truth labels) for visualization.
 
 ```
-python GeoSeg/tools/vaihingen_patch_split.py \
+python ImgSeg/tools/vaihingen_patch_split.py \
 --img-dir "data/vaihingen/test_images" \
 --mask-dir "data/vaihingen/test_masks" \
 --output-img-dir "data/vaihingen/test/images_1024" \
@@ -130,7 +130,7 @@ As for the validation set, you can select some images from the training set to b
 **Potsdam**
 
 ```
-python GeoSeg/tools/potsdam_patch_split.py \
+python ImgSeg/tools/potsdam_patch_split.py \
 --img-dir "data/potsdam/train_images" \
 --mask-dir "data/potsdam/train_masks" \
 --output-img-dir "data/potsdam/train/images_1024" \
@@ -139,7 +139,7 @@ python GeoSeg/tools/potsdam_patch_split.py \
 ```
 
 ```
-python GeoSeg/tools/potsdam_patch_split.py \
+python ImgSeg/tools/potsdam_patch_split.py \
 --img-dir "data/potsdam/test_images" \
 --mask-dir "data/potsdam/test_masks_eroded" \
 --output-img-dir "data/potsdam/test/images_1024" \
@@ -149,7 +149,7 @@ python GeoSeg/tools/potsdam_patch_split.py \
 ```
 
 ```
-python GeoSeg/tools/potsdam_patch_split.py \
+python ImgSeg/tools/potsdam_patch_split.py \
 --img-dir "data/potsdam/test_images" \
 --mask-dir "data/potsdam/test_masks" \
 --output-img-dir "data/potsdam/test/images_1024" \
@@ -161,7 +161,7 @@ python GeoSeg/tools/potsdam_patch_split.py \
 **UAVid**
 
 ```
-python GeoSeg/tools/uavid_patch_split.py \
+python ImgSeg/tools/uavid_patch_split.py \
 --input-dir "data/uavid/uavid_train_val" \
 --output-img-dir "data/uavid/train_val/images" \
 --output-mask-dir "data/uavid/train_val/masks" \
@@ -170,7 +170,7 @@ python GeoSeg/tools/uavid_patch_split.py \
 ```
 
 ```
-python GeoSeg/tools/uavid_patch_split.py \
+python ImgSeg/tools/uavid_patch_split.py \
 --input-dir "data/uavid/uavid_train" \
 --output-img-dir "data/uavid/train/images" \
 --output-mask-dir "data/uavid/train/masks" \
@@ -179,7 +179,7 @@ python GeoSeg/tools/uavid_patch_split.py \
 ```
 
 ```
-python GeoSeg/tools/uavid_patch_split.py \
+python ImgSeg/tools/uavid_patch_split.py \
 --input-dir "data/uavid/uavid_val" \
 --output-img-dir "data/uavid/val/images" \
 --output-mask-dir "data/uavid/val/masks" \
@@ -190,10 +190,10 @@ python GeoSeg/tools/uavid_patch_split.py \
 **LoveDA**
 
 ```
-python GeoSeg/tools/loveda_mask_convert.py --mask-dir data/LoveDA/Train/Rural/masks_png --output-mask-dir data/LoveDA/Train/Rural/masks_png_convert
-python GeoSeg/tools/loveda_mask_convert.py --mask-dir data/LoveDA/Train/Urban/masks_png --output-mask-dir data/LoveDA/Train/Urban/masks_png_convert
-python GeoSeg/tools/loveda_mask_convert.py --mask-dir data/LoveDA/Val/Rural/masks_png --output-mask-dir data/LoveDA/Val/Rural/masks_png_convert
-python GeoSeg/tools/loveda_mask_convert.py --mask-dir data/LoveDA/Val/Urban/masks_png --output-mask-dir data/LoveDA/Val/Urban/masks_png_convert
+python ImgSeg/tools/loveda_mask_convert.py --mask-dir data/LoveDA/Train/Rural/masks_png --output-mask-dir data/LoveDA/Train/Rural/masks_png_convert
+python ImgSeg/tools/loveda_mask_convert.py --mask-dir data/LoveDA/Train/Urban/masks_png --output-mask-dir data/LoveDA/Train/Urban/masks_png_convert
+python ImgSeg/tools/loveda_mask_convert.py --mask-dir data/LoveDA/Val/Rural/masks_png --output-mask-dir data/LoveDA/Val/Rural/masks_png_convert
+python ImgSeg/tools/loveda_mask_convert.py --mask-dir data/LoveDA/Val/Urban/masks_png --output-mask-dir data/LoveDA/Val/Urban/masks_png_convert
 ```
 
 ## Training
@@ -201,8 +201,11 @@ python GeoSeg/tools/loveda_mask_convert.py --mask-dir data/LoveDA/Val/Urban/mask
 "-c" means the path of the config, use different **config** to train different models.
 
 ```
-python GeoSeg/train_supervision.py -c GeoSeg/config/uavid/unetformer.py
-python GeoSeg/train_supervision.py -c GeoSeg/config/potsdam/unetformer.py
+python ImgSeg/train_supervision.py -c ImgSeg/config/uavid/unetformer.py
+python ImgSeg/train_supervision.py -c ImgSeg/config/potsdam/unetformer.py
+python ImgSeg/train_supervision.py -c ImgSeg/config/vaihingen/hdpa.py
+python ImgSeg/train_supervision.py -c ImgSeg/config/vaihingen/backbone_dfsi_mdaf.py
+python ImgSeg/train_supervision.py -c ImgSeg/config/potsdam/backbone_dfsi_mdaf.py
 ```
 
 ## Testing
@@ -218,29 +221,31 @@ python GeoSeg/train_supervision.py -c GeoSeg/config/potsdam/unetformer.py
 **Vaihingen**
 
 ```
-python GeoSeg/vaihingen_test.py -c GeoSeg/config/vaihingen/dcswin.py -o fig_results/vaihingen/dcswin --rgb -t 'd4'
-python GeoSeg/vaihingen_test.py -c GeoSeg/config/vaihingen/unetformer.py -o fig_results/vaihingen/unetformer --rgb -t 'd4'
+python ImgSeg/vaihingen_test.py -c ImgSeg/config/vaihingen/dcswin.py -o fig_results/vaihingen/dcswin --rgb -t 'd4'
+python ImgSeg/vaihingen_test.py -c ImgSeg/config/vaihingen/unetformer.py -o fig_results/vaihingen/unetformer --rgb -t 'd4'
+python ImgSeg/vaihingen_test.py -c ImgSeg/config/vaihingen/backbone_dfsi_mdaf.py -o fig_results/vaihingen/backbone_dfsi_mdaf --rgb -t 'd4'
 ```
 
 **Potsdam**
 
 ```
-python GeoSeg/potsdam_test.py -c GeoSeg/config/potsdam/dcswin.py -o fig_results/potsdam/dcswin --rgb -t 'lr'
-python GeoSeg/potsdam_test.py -c GeoSeg/config/potsdam/unetformer.py -o fig_results/potsdam/unetformer --rgb -t 'lr'
+python ImgSeg/potsdam_test.py -c ImgSeg/config/potsdam/dcswin.py -o fig_results/potsdam/dcswin --rgb -t 'lr'
+python ImgSeg/potsdam_test.py -c ImgSeg/config/potsdam/unetformer.py -o fig_results/potsdam/unetformer --rgb -t 'lr'
+python ImgSeg/potsdam_test.py -c ImgSeg/config/potsdam/hdpa.py -o fig_results/potsdam/hdpa --rgb -t 'lr'
 ```
 
 **LoveDA** ([Online Testing](https://codalab.lisn.upsaclay.fr/competitions/421))
 
 ```
-python GeoSeg/loveda_test.py -c GeoSeg/config/loveda/dcswin.py -o fig_results/loveda/dcswin_test -t 'd4'
+python ImgSeg/loveda_test.py -c ImgSeg/config/loveda/dcswin.py -o fig_results/loveda/dcswin_test -t 'd4'
 ```
 
 **UAVid** ([Online Testing](https://codalab.lisn.upsaclay.fr/competitions/7302))
 
 ```
-python GeoSeg/inference_uavid.py \
+python ImgSeg/inference_uavid.py \
 -i 'data/uavid/uavid_test' \
--c GeoSeg/config/uavid/unetformer.py \
+-c ImgSeg/config/uavid/unetformer.py \
 -o fig_results/uavid/unetformer_r18 \
 -t 'lr' -ph 1152 -pw 1024 -b 2 -d "uavid"
 ```
@@ -248,9 +253,9 @@ python GeoSeg/inference_uavid.py \
 ## Inference on huge remote sensing image
 
 ```
-python GeoSeg/inference_huge_image.py \
+python ImgSeg/inference_huge_image.py \
 -i data/vaihingen/test_images \
--c GeoSeg/config/vaihingen/dcswin.py \
+-c ImgSeg/config/vaihingen/dcswin.py \
 -o fig_results/vaihingen/dcswin_huge \
 -t 'lr' -ph 512 -pw 512 -b 2 -d "pv"
 ```
