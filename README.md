@@ -232,6 +232,7 @@ python ImgSeg/vaihingen_test.py -c ImgSeg/config/vaihingen/backbone_dfsi_mdaf.py
 python ImgSeg/potsdam_test.py -c ImgSeg/config/potsdam/dcswin.py -o fig_results/potsdam/dcswin --rgb -t 'lr'
 python ImgSeg/potsdam_test.py -c ImgSeg/config/potsdam/unetformer.py -o fig_results/potsdam/unetformer --rgb -t 'lr'
 python ImgSeg/potsdam_test.py -c ImgSeg/config/potsdam/hdpa.py -o fig_results/potsdam/hdpa --rgb -t 'lr'
+python ImgSeg/potsdam_test.py -c ImgSeg/config/potsdam/backbone_dfsi_mdaf.py -o fig_results/potsdam/backbone_dfsi_mdaf --rgb -t 'lr'
 ```
 
 **LoveDA** ([Online Testing](https://codalab.lisn.upsaclay.fr/competitions/421))
