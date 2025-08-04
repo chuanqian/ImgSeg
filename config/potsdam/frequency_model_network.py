@@ -1,12 +1,12 @@
 from torch.utils.data import DataLoader
 from geoseg.losses import *
-from geoseg.datasets.vaihingen_dataset import *
-from geoseg.models.HDPA import HDPANet
+from geoseg.datasets.potsdam_dataset import *
+from geoseg.models.FrequencyModelNetwork import FrequencyModelNetwork
 from tools.utils import Lookahead
 from tools.utils import process_model_params
 
 # training hparam
-max_epoch = 105
+max_epoch = 400
 ignore_index = len(CLASSES)
 train_batch_size = 8
 val_batch_size = 8
@@ -17,10 +17,10 @@ backbone_weight_decay = 0.01
 num_classes = len(CLASSES)
 classes = CLASSES
 
-weights_name = "hdpa-r18-512-crop-ms-e105"
-weights_path = "model_weights/vaihingen/{}".format(weights_name)
-test_weights_name = "hdpa-r18-512-crop-ms-e105"
-log_name = 'vaihingen/{}'.format(weights_name)
+weights_name = "FrequencyModelNetwork-r18-768crop-ms-e400"
+weights_path = "model_weights/potsdam/{}".format(weights_name)
+test_weights_name = "FrequencyModelNetwork-r18-768crop-ms-e400"
+log_name = 'potsdam/{}'.format(weights_name)
 monitor = 'val_F1'
 monitor_mode = 'max'
 save_top_k = 1
@@ -31,7 +31,7 @@ gpus = 'auto'  # default or gpu ids:[0] or gpu nums: 2, more setting can refer t
 resume_ckpt_path = None  # whether continue training with the checkpoint, default None
 
 #  define the network
-net = HDPANet(num_classes=num_classes)
+net = FrequencyModelNetwork(num_classes=num_classes)
 
 # define the loss
 loss = UnetFormerLoss(ignore_index=ignore_index)
@@ -39,12 +39,12 @@ use_aux_loss = False
 
 # define the dataloader
 
-train_dataset = VaihingenDataset(data_root='data/vaihingen/train', mode='train',
-                                 mosaic_ratio=0.25, transform=train_aug)
+train_dataset = PotsdamDataset(data_root='data/potsdam/train', mode='train',
+                               mosaic_ratio=0.25, transform=train_aug)
 
-val_dataset = VaihingenDataset(transform=val_aug)
-test_dataset = VaihingenDataset(data_root='data/vaihingen/test',
-                                transform=val_aug)
+val_dataset = PotsdamDataset(transform=val_aug)
+test_dataset = PotsdamDataset(data_root='data/potsdam/test',
+                              transform=val_aug)
 
 train_loader = DataLoader(dataset=train_dataset,
                           batch_size=train_batch_size,
@@ -65,4 +65,4 @@ layerwise_params = {"backbone.*": dict(lr=backbone_lr, weight_decay=backbone_wei
 net_params = process_model_params(net, layerwise_params=layerwise_params)
 base_optimizer = torch.optim.AdamW(net_params, lr=lr, weight_decay=weight_decay)
 optimizer = Lookahead(base_optimizer)
-lr_scheduler = torch.optim.lr_scheduler.CosineAnnealingWarmRestarts(optimizer, T_0=15, T_mult=2)
+lr_scheduler = torch.optim.lr_scheduler.CosineAnnealingWarmRestarts(optimizer, T_0=30, T_mult=2)

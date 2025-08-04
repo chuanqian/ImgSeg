@@ -204,8 +204,7 @@ python ImgSeg/tools/loveda_mask_convert.py --mask-dir data/LoveDA/Val/Urban/mask
 python ImgSeg/train_supervision.py -c ImgSeg/config/uavid/unetformer.py
 python ImgSeg/train_supervision.py -c ImgSeg/config/potsdam/unetformer.py
 python ImgSeg/train_supervision.py -c ImgSeg/config/vaihingen/hdpa.py
-python ImgSeg/train_supervision.py -c ImgSeg/config/vaihingen/backbone_dfsi_mdaf.py
-python ImgSeg/train_supervision.py -c ImgSeg/config/potsdam/backbone_dfsi_mdaf.py
+python ImgSeg/train_supervision.py -c ImgSeg/config/potsdam/hdpa.py
 ```
 
 ## Testing
@@ -223,7 +222,7 @@ python ImgSeg/train_supervision.py -c ImgSeg/config/potsdam/backbone_dfsi_mdaf.p
 ```
 python ImgSeg/vaihingen_test.py -c ImgSeg/config/vaihingen/dcswin.py -o fig_results/vaihingen/dcswin --rgb -t 'd4'
 python ImgSeg/vaihingen_test.py -c ImgSeg/config/vaihingen/unetformer.py -o fig_results/vaihingen/unetformer --rgb -t 'd4'
-python ImgSeg/vaihingen_test.py -c ImgSeg/config/vaihingen/backbone_dfsi_mdaf.py -o fig_results/vaihingen/backbone_dfsi_mdaf --rgb -t 'd4'
+python ImgSeg/vaihingen_test.py -c ImgSeg/config/vaihingen/hdpa.py -o fig_results/vaihingen/hdpa --rgb -t 'd4'
 ```
 
 **Potsdam**
@@ -231,8 +230,6 @@ python ImgSeg/vaihingen_test.py -c ImgSeg/config/vaihingen/backbone_dfsi_mdaf.py
 ```
 python ImgSeg/potsdam_test.py -c ImgSeg/config/potsdam/dcswin.py -o fig_results/potsdam/dcswin --rgb -t 'lr'
 python ImgSeg/potsdam_test.py -c ImgSeg/config/potsdam/unetformer.py -o fig_results/potsdam/unetformer --rgb -t 'lr'
-python ImgSeg/potsdam_test.py -c ImgSeg/config/potsdam/hdpa.py -o fig_results/potsdam/hdpa --rgb -t 'lr'
-python ImgSeg/potsdam_test.py -c ImgSeg/config/potsdam/backbone_dfsi_mdaf.py -o fig_results/potsdam/backbone_dfsi_mdaf --rgb -t 'lr'
 ```
 
 **LoveDA** ([Online Testing](https://codalab.lisn.upsaclay.fr/competitions/421))
